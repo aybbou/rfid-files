@@ -1,0 +1,30 @@
+patent-scraper: permet d'extraire les breuvets du site freepatentsonline.com
+
+Langage de programmation: PHP.
+
+Libraries & Extensions:
+    -Goutte une librarie de scraping qui utilise:
+        1) Des composants Symfony2.
+        2) Guzzle un client HTTP en PHP.
+    - cURL : utilisé par Guzzle pour les requetes HTTP.
+    
+Méthodologie:
+    -La classe Rayak\PatentScarper prend en argument une client(Goutte\Client) et un tableaux de configuration ($config)
+    et permet de parcourir les pages de recheche, d'extraire les liens des brevets et puis de télécharger les brevets 
+    dans un dossier (fporesults).
+    
+    -Le tableau $config contient les paramètres suivants:
+        -'website'              : l'adresse du site web des brevets ('http://www.freepatentsonline.com')
+        -'query'                : l'expression de recherche ('RFID')
+        -'nbPages'              : le nombre de pages des résultats de recherche
+        -'patentLinkFilter'     : le filtre css des liens des brevts ('.listing_table a')
+        -'patentContentFilter'  : le filtre css du contenu des brevets ('.document-details-wrapper')
+        -'searchPage'           : la page de recherche du site concerné ('/result.html?sort=relevance&srch=top&submit=&patents=on')
+        -'queryParam'           : le paramètre dans l'URL contenant l'epression de recherche ('query_txt')
+        -'pageParam'            : le paramètre dans l'URL contenant le numéro de la page de recherche 'p'
+      
+    -La fonction createPatentsFiles($path) permet de créer les fichiers des brevets dans le dossier $path en utilisant
+    le tableau de configuration $config et quelques fonctions internes.
+    
+Difficultés:
+    -La recherche avancée dans le site (freepatentsonline.com) n'est pas claire.
